@@ -17,6 +17,7 @@ backend/yarn-error.log
 backend/.fleet
 backend/.idea
 backend/.vscode
+backend/.DS_Store
 
 # Node.js & Frontend Specific (frontend)
 frontend/node_modules
