@@ -5,7 +5,7 @@ use Illuminate\Console\Command;
 use App\Models\Campaign;
 use App\Jobs\SendCampaignEmail;
 
-class ProcessPendingCampaigns extends Command
+class gitProcessPendingCampaigns extends Command
 {
     protected $signature = 'campaigns:process';
     protected $description = 'Process pending campaigns in chunks';
