@@ -13,5 +13,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/campaigns', [CampaignController::class, 'store']);
     Route::get('/campaigns', [CampaignController::class, 'index']);
+    Route::delete('/campaigns/{campaignId}', [CampaignController::class, 'deleteCampaign']);
+
 });
 

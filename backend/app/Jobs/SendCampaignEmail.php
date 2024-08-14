@@ -35,7 +35,7 @@ class SendCampaignEmail
                 Log::error('CSV file is empty or invalid', ['campaign_id' => $this->campaign->id]);
                 return;
             }
-
+            $this->campaign->update(['status' => 'in_progress']);
             $processedLines = $this->processCsvLines($lines);
 
             if ($this->isCampaignProcessed($processedLines, count($lines))) {

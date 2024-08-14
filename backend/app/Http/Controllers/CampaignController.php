@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Campaign;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CampaignController extends Controller
 {
@@ -46,6 +47,26 @@ class CampaignController extends Controller
 
         } catch (Exception $e) {
             return response()->json(['error' => 'Failed to fetch campaigns'], 500);
+        }
+    }
+    public function deleteCampaign(Request $request, $campaignId)
+    {
+        try {
+            $user = $request->user();
+            $campaign = Campaign::where('id', $campaignId)->where('user_id', $user->id)->firstOrFail();
+
+            if ($campaign->csv_file) {
+                Storage::delete($campaign->csv_file);
+            }
+
+            // Delete the campaign
+            $campaign->delete();
+
+            return response()->json(['message' => 'Campaign deleted successfully']);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'Campaign not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error deleting campaign', 'error' => $e->getMessage()], 500);
         }
     }
 }
